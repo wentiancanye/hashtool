@@ -42,8 +42,8 @@ func GetFileData(folder string) (Data, error) {
 			log.Println(err.Error())
 			return err
 		}
-		fi.Sys()
-		if !(fi.IsDir() || fi.Name() == itself || fi.Name() == "data" || fi.Name() == "version") {
+		fname := fi.Name()
+		if !(fi.IsDir() || fname == itself || fname == "data" || fname == "version" || fname == "plugin") {
 			h, _ := GetFileHash(f)
 			fs = append(fs, f)
 			ds = append(ds, h)
