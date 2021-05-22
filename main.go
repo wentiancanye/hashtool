@@ -55,8 +55,16 @@ func GetFileData(folder string) (Data, error) {
 }
 
 func main() {
-	if len(os.Args) >= 2 {
-		fmt.Println("使用说明：递归获取当前文件夹下所有文件的SHA1值，保存为data文件，忽略自身、data、version、plugin")
+	if len(os.Args) >= 2 && os.Args[1] == "-h" {
+		fmt.Println("使用说明：递归获取当前文件夹下所有文件的SHA1值，保存为data文件，忽略自身、data、version、plugin\n")
+		fmt.Println("Flags:")
+		fmt.Println("    -h")
+		fmt.Println("        获取帮助")
+		fmt.Println("    -f <文件路径>")
+		fmt.Println("        获取指定文件的SHA1值")
+	} else if len(os.Args) >= 3 && os.Args[1] == "-f" {
+		var fh, _ = GetFileHash(os.Args[2])
+		fmt.Println(fh)
 	} else {
 		fp, _ := os.Create("data")
 		defer fp.Close()
